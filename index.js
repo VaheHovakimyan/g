@@ -155,7 +155,6 @@ async function getData() {
         // Add post info to paragraph
         p_id.innerText = post.id;
         p_title.innerText = post.title;
-        // p_user_name.innerText = post.userId;
 
         // Add classnames and ids to paragraphs
         p_id.id = "main_div_item_id";
@@ -187,8 +186,75 @@ getData();
 
 let create_btn = document.getElementById("main_div_create_btn");
 
-function Create() {
+async function Create() {
+
+    // Delete posts page
     parentTodolist.removeChild(todolist);
+
+    // Add Create page
+    let createDiv = document.createElement("div");
+
+    // Add create title
+    let createDivTitle = document.createElement("div");
+    let createTitle = document.createElement("div");
+
+    // createDiv
+    createDivTitle.innerHTML = `<div class="main_div_body_title_create_btn">
+                                    <span class="main_div_body_title">Create Post</span>
+                                </div>`;
+
+    createDivTitle.appendChild(createTitle);
+    createDiv.appendChild(createDivTitle);
+
+
+    // Inputs div
+    let inputsDIV = document.createElement("div");
+
+    let inputLeftDiv = document.createElement("div");
+    let inputRightDiv = document.createElement("div");
+
+
+    //inputLeftDiv block
+    let inputLeftDivTitleInput = document.createElement("input");
+    inputLeftDivTitleInput.placeholder = "Title";
+    inputLeftDivTitleInput.className = "";
+
+    let users = [];
+
+    await fetch("https://jsonplaceholder.typicode.com/users")
+        .then((stream) => { return stream.json() })
+        .then((data) => {
+            console.log(data);
+            users = data;
+        })
+
+
+    let inputLeftDivUserSelect = document.createElement("div");
+    let select = document.createElement("select");
+    
+
+    users.map((user) => {
+        let option = document.createElement("option");
+        option.innerText = user.name;
+        select.appendChild(option);
+    });
+
+    inputLeftDivUserSelect.appendChild(select);
+
+    // Input left div elements 
+
+    inputLeftDiv.appendChild(inputLeftDivTitleInput);
+    inputLeftDiv.appendChild(inputLeftDivUserSelect);
+
+    //inputRightDiv block
+
+
+    //inputLeftDiv and inputRightDiv to inputsDIV
+    inputsDIV.appendChild(inputLeftDiv);
+    inputsDIV.appendChild(inputRightDiv);
+
+    parentTodolist.appendChild(createDiv);
+    parentTodolist.appendChild(inputsDIV);
 }
 
 create_btn.addEventListener("click", Create);
