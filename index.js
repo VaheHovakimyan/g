@@ -1,9 +1,25 @@
 ///////////////////////////////////////////////////////////////
 
-// let todolist = document.getElementById("main_div_list");
 
 let parentTodolist = document.getElementById("main_div_list_div");
 
+// window.location.href = "http://127.0.0.1:5501/#";
+
+function CheckHref() {
+    switch (window.location.href) {
+        case "http://127.0.0.1:5501/#":
+            getData();
+            break;
+        case "http://127.0.0.1:5501/#create":
+            Create();
+            break;
+        case "http://127.0.0.1:5501/#":
+            break;
+        default:
+            window.location.href = "http://127.0.0.1:5501/#"
+            break;
+    }
+}
 
 
 
@@ -54,6 +70,7 @@ checkmarkDiv.className = "main_div_list_item_div";
 checkmarkDiv.id = "main_div_title_id";
 checkmarkP.className = "main_div_title_text";
 
+
 // username div and p
 let usernameDiv = document.createElement("div");
 let usernameP = document.createElement("span");
@@ -99,9 +116,16 @@ titleDiv.appendChild(actionsDiv);
 
 parentTitleDiv.appendChild(titleDiv);
 
-todolist.appendChild(parentTitleDiv)
+todolist.appendChild(parentTitleDiv);
+
+
+// console.log(window.location.href);
 
 async function getData() {
+
+    window.location.href = "http://127.0.0.1:5501/#";
+
+    console.log(window.location.pathname);
 
     let posts = [];
     let users = [];
@@ -188,6 +212,8 @@ let create_btn = document.getElementById("main_div_create_btn");
 
 async function Create() {
 
+    CheckHref();
+
     // Delete posts page
     parentTodolist.removeChild(todolist);
 
@@ -198,7 +224,26 @@ async function Create() {
     let createDivTitle = document.createElement("div");
     let createTitle = document.createElement("div");
 
-    // createDiv
+    // Add buttons Create and Cancel
+    let createButtonCancelButtonDivFlex = document.createElement("div");
+    createButtonCancelButtonDivFlex.className = "create_buttons_div_flex";
+    let createButtonCancelButtonDiv = document.createElement("div");
+    createButtonCancelButtonDiv.className = "create_buttons_div";
+
+    let createButton = document.createElement("button");
+    createButton.innerText = "Create";
+    createButton.className = "create_button";
+
+    let cancelButton = document.createElement("button");
+    cancelButton.className = "cancel_button";
+    cancelButton.innerText = "Cancel";
+
+    createButtonCancelButtonDiv.appendChild(createButton);
+    createButtonCancelButtonDiv.appendChild(cancelButton);
+    createButtonCancelButtonDivFlex.appendChild(createButtonCancelButtonDiv);
+
+
+    // createDivTitle
     createDivTitle.innerHTML = `<div class="main_div_body_title_create_btn">
                                     <span class="main_div_body_title">Create Post</span>
                                 </div>`;
@@ -209,15 +254,18 @@ async function Create() {
 
     // Inputs div
     let inputsDIV = document.createElement("div");
+    inputsDIV.className = "create_inputs_div";
 
     let inputLeftDiv = document.createElement("div");
+    inputLeftDiv.className = "create_inputs_left_div_pos";
     let inputRightDiv = document.createElement("div");
+    inputRightDiv.className = "create_inputs_right_div_pos";
 
 
     //inputLeftDiv block
     let inputLeftDivTitleInput = document.createElement("input");
     inputLeftDivTitleInput.placeholder = "Title";
-    inputLeftDivTitleInput.className = "";
+    inputLeftDivTitleInput.className = "create_inputs_left_div_input";
 
     let users = [];
 
@@ -231,23 +279,35 @@ async function Create() {
 
     let inputLeftDivUserSelect = document.createElement("div");
     let select = document.createElement("select");
-    
+    select.className = "create_inputs_left_div_input";
+    let option = document.createElement("option");
+    option.innerText = "Select User";
+    select.appendChild(option);
 
-    users.map((user) => {
+    let userIds = users.map(({id}) => id);
+
+
+    users.map((user, index) => {
         let option = document.createElement("option");
         option.innerText = user.name;
+
+        option.value = userIds[index];
         select.appendChild(option);
+        
     });
 
     inputLeftDivUserSelect.appendChild(select);
 
-    // Input left div elements 
-
+    // Input left div elements
     inputLeftDiv.appendChild(inputLeftDivTitleInput);
     inputLeftDiv.appendChild(inputLeftDivUserSelect);
 
     //inputRightDiv block
+    let inputRightDivBodyInput = document.createElement("input");
+    inputRightDivBodyInput.placeholder = "Body";
+    inputRightDivBodyInput.className = "create_inputs_right_div_input";
 
+    inputRightDiv.appendChild(inputRightDivBodyInput);
 
     //inputLeftDiv and inputRightDiv to inputsDIV
     inputsDIV.appendChild(inputLeftDiv);
@@ -255,6 +315,46 @@ async function Create() {
 
     parentTodolist.appendChild(createDiv);
     parentTodolist.appendChild(inputsDIV);
+    parentTodolist.appendChild(createButtonCancelButtonDivFlex);
+
+    function Cancel() {
+        window.location.href = "http://127.0.0.1:5501/#";
+        parentTodolist.removeChild(createDiv);
+        parentTodolist.removeChild(inputsDIV);
+        parentTodolist.removeChild(createButtonCancelButtonDivFlex);
+        parentTodolist.appendChild(todolist);
+        getData();
+    }
+
+    cancelButton.addEventListener("click", Cancel);
+
+    function Create() {
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: inputLeftDivTitleInput.value,
+                body: inputRightDivBodyInput.value,
+                userId: select.value,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+
+        window.location.href = "http://127.0.0.1:5501/#";
+
+        Cancel();
+    }
+
+    createButton.addEventListener("click", Create);
+
+    window.location.href = "http://127.0.0.1:5501/#create";
+
+    // console.log(window.location.pathname);
+
+
 }
 
 create_btn.addEventListener("click", Create);
