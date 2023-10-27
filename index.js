@@ -7,20 +7,19 @@ let parentTodolist = document.getElementById("main_div_list_div");
 
 function CheckHref() {
     switch (window.location.href) {
-        case "http://127.0.0.1:5501/#":
+        case "http://127.0.0.1:5501/#/post":
             getData();
             break;
-        case "http://127.0.0.1:5501/#create":
+        case "http://127.0.0.1:5501/#/posts/create":
             Create();
             break;
-        case "http://127.0.0.1:5501/#":
+        case "http://127.0.0.1:5501/#/posts/edit":
             break;
         default:
-            window.location.href = "http://127.0.0.1:5501/#"
+            window.location.href = "http://127.0.0.1:5501/#/pos"
             break;
     }
 }
-
 
 
 
@@ -52,7 +51,7 @@ headerBodyTodoList.appendChild(headerCreate_btn);
 headerTodoList.appendChild(headerBodyTodoList);
 todolist.appendChild(headerTodoList);
 
-// create title div of todolist
+// Create title div of todolist
 let parentTitleDiv = document.createElement("div");
 parentTitleDiv.className = "main_div_titles_div";
 parentTitleDiv.id = "main_div_titles_div";
@@ -121,11 +120,167 @@ todolist.appendChild(parentTitleDiv);
 
 // console.log(window.location.href);
 
+
+
+///////////////////////////   Function Edit   ///////////////////////////
+
+async function Edit(data) {
+
+
+    console.log(data);
+
+    //////////////
+
+    // Delete posts page
+    parentTodolist.removeChild(todolist);
+
+    // Add Create page
+    let createDiv = document.createElement("div");
+
+    // Add create title
+    let createDivTitle = document.createElement("div");
+    let createTitle = document.createElement("div");
+
+    // Add buttons Create and Cancel
+    let createButtonCancelButtonDivFlex = document.createElement("div");
+    createButtonCancelButtonDivFlex.className = "create_buttons_div_flex";
+    let createButtonCancelButtonDiv = document.createElement("div");
+    createButtonCancelButtonDiv.className = "create_buttons_div";
+
+    let saveButton = document.createElement("button");
+    saveButton.className = "create_button";
+    saveButton.innerText = "Save";
+
+    let cancelButton = document.createElement("button");
+    cancelButton.className = "cancel_button";
+    cancelButton.innerText = "Cancel";
+
+    createButtonCancelButtonDiv.appendChild(saveButton);
+    createButtonCancelButtonDiv.appendChild(cancelButton);
+    createButtonCancelButtonDivFlex.appendChild(createButtonCancelButtonDiv);
+
+
+    // createDivTitle
+    createDivTitle.innerHTML = `<div class="main_div_body_title_create_btn">
+                                        <span class="main_div_body_title">Edit Post</span>
+                                    </div>`;
+    createDivTitle.appendChild(createTitle);
+    createDiv.appendChild(createDivTitle);
+
+
+    // Inputs div
+    let inputsDIV = document.createElement("div");
+    inputsDIV.className = "create_inputs_div";
+
+    let inputLeftDiv = document.createElement("div");
+    inputLeftDiv.className = "create_inputs_left_div_pos";
+
+    let inputRightDiv = document.createElement("div");
+    inputRightDiv.className = "create_inputs_right_div_pos";
+
+
+    //inputLeftDiv block
+    let inputLeftDivTitleInput = document.createElement("input");
+    inputLeftDivTitleInput.placeholder = "Title";
+    inputLeftDivTitleInput.className = "create_inputs_left_div_input";
+
+    let users = [];
+
+    await fetch("https://jsonplaceholder.typicode.com/users")
+        .then((stream) => { return stream.json() })
+        .then((data) => {
+            console.log(data);
+            users = data;
+        })
+
+
+    let inputLeftDivUserSelect = document.createElement("div");
+    let select = document.createElement("select");
+    select.className = "create_inputs_left_div_input";
+    let option = document.createElement("option");
+    option.innerText = "Select User";
+    select.appendChild(option);
+
+    let userIds = users.map(({ id }) => id);
+
+    users.map((user, index) => {
+        let option = document.createElement("option");
+        option.innerText = user.name;
+        option.value = userIds[index];
+        select.appendChild(option);
+    });
+
+    inputLeftDivUserSelect.appendChild(select);
+
+    // Input left div elements
+    inputLeftDiv.appendChild(inputLeftDivTitleInput);
+    inputLeftDiv.appendChild(inputLeftDivUserSelect);
+
+    //inputRightDiv block
+    let inputRightDivBodyInput = document.createElement("input");
+    inputRightDivBodyInput.placeholder = "Body";
+    inputRightDivBodyInput.className = "create_inputs_right_div_input";
+
+    inputRightDiv.appendChild(inputRightDivBodyInput);
+
+    //inputLeftDiv and inputRightDiv to inputsDIV
+    inputsDIV.appendChild(inputLeftDiv);
+    inputsDIV.appendChild(inputRightDiv);
+
+    parentTodolist.appendChild(createDiv);
+    parentTodolist.appendChild(inputsDIV);
+    parentTodolist.appendChild(createButtonCancelButtonDivFlex);
+
+    function Cancel() {
+        window.location.href = "http://127.0.0.1:5501/#/posts";
+        parentTodolist.removeChild(createDiv);
+        parentTodolist.removeChild(inputsDIV);
+        parentTodolist.removeChild(createButtonCancelButtonDivFlex);
+        parentTodolist.appendChild(todolist);
+        getData();
+    }
+
+    cancelButton.addEventListener("click", Cancel);
+
+    function EditPost() {
+        fetch(`https://jsonplaceholder.typicode.com/posts/${data.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                id: data.id,
+                title: inputLeftDivTitleInput.value,
+                body: inputRightDivBodyInput.value,
+                userId: select.value,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => console.warn(json));
+
+
+        window.location.href = "http://127.0.0.1:5501/#/posts";
+
+        Cancel();
+    }
+
+    saveButton.addEventListener("click", EditPost);
+
+    /////////////
+
+
+    window.location.href = `http://127.0.0.1:5501/#/posts/edit/${data.id}`;
+
+}
+
+
+
+
 async function getData() {
 
-    window.location.href = "http://127.0.0.1:5501/#";
+    window.location.href = "http://127.0.0.1:5501/#/posts";
 
-    console.log(window.location.pathname);
+    // console.log(window.location.pathname);
 
     let posts = [];
     let users = [];
@@ -188,7 +343,9 @@ async function getData() {
 
         // Add icons to actions
         edit_icon.src = "./icons/main_list/edit_icon.svg";
+        edit_icon.style.cursor = "pointer";
         delete_icon.src = "./icons/main_list/delete_icon.svg";
+        delete_icon.style.cursor = "pointer";
         div_actions.appendChild(edit_icon);
         div_actions.appendChild(delete_icon);
 
@@ -198,21 +355,47 @@ async function getData() {
         parent_div.appendChild(p_title);
         parent_div.appendChild(div_actions);
 
+        delete_icon.addEventListener("click", () => {
+            Delete(post.id);
+        });
+
+        p_id.addEventListener("click", function () {
+            Edit(post);
+        });
+
+        p_user_name.addEventListener("click", function () {
+            Edit(post);
+        });
+
+        p_title.addEventListener("click", function () {
+            Edit(post);
+        });
+
+        edit_icon.addEventListener("click", function () {
+            Edit(post);
+        });
+
+
         // Add parent div to todolist
         todolist.appendChild(parent_div);
 
     })
 
+
+
 }
 
+
 getData();
+
+
 
 
 let create_btn = document.getElementById("main_div_create_btn");
 
 async function Create() {
 
-    CheckHref();
+    // CheckHref();
 
     // Delete posts page
     parentTodolist.removeChild(todolist);
@@ -231,8 +414,8 @@ async function Create() {
     createButtonCancelButtonDiv.className = "create_buttons_div";
 
     let createButton = document.createElement("button");
-    createButton.innerText = "Create";
     createButton.className = "create_button";
+    createButton.innerText = "Create";
 
     let cancelButton = document.createElement("button");
     cancelButton.className = "cancel_button";
@@ -258,6 +441,7 @@ async function Create() {
 
     let inputLeftDiv = document.createElement("div");
     inputLeftDiv.className = "create_inputs_left_div_pos";
+
     let inputRightDiv = document.createElement("div");
     inputRightDiv.className = "create_inputs_right_div_pos";
 
@@ -284,16 +468,13 @@ async function Create() {
     option.innerText = "Select User";
     select.appendChild(option);
 
-    let userIds = users.map(({id}) => id);
-
+    let userIds = users.map(({ id }) => id);
 
     users.map((user, index) => {
         let option = document.createElement("option");
         option.innerText = user.name;
-
         option.value = userIds[index];
         select.appendChild(option);
-        
     });
 
     inputLeftDivUserSelect.appendChild(select);
@@ -318,7 +499,7 @@ async function Create() {
     parentTodolist.appendChild(createButtonCancelButtonDivFlex);
 
     function Cancel() {
-        window.location.href = "http://127.0.0.1:5501/#";
+        window.location.href = "http://127.0.0.1:5501/#/posts";
         parentTodolist.removeChild(createDiv);
         parentTodolist.removeChild(inputsDIV);
         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
@@ -328,7 +509,7 @@ async function Create() {
 
     cancelButton.addEventListener("click", Cancel);
 
-    function Create() {
+    function CreatePost() {
         fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
             body: JSON.stringify({
@@ -343,18 +524,83 @@ async function Create() {
             .then((response) => response.json())
             .then((json) => console.log(json));
 
-        window.location.href = "http://127.0.0.1:5501/#";
+        window.location.href = "http://127.0.0.1:5501/#/posts";
 
         Cancel();
     }
 
-    createButton.addEventListener("click", Create);
+    createButton.addEventListener("click", CreatePost);
 
-    window.location.href = "http://127.0.0.1:5501/#create";
-
-    // console.log(window.location.pathname);
-
+    window.location.href = "http://127.0.0.1:5501/#/posts/create";
 
 }
 
 create_btn.addEventListener("click", Create);
+
+function Close(parentElement, childElement) {
+    parentElement.removeChild(childElement);
+}
+
+async function Delete(id) {
+
+    // Delete main div
+    let deleteMainDivFlex = document.createElement("div");
+    deleteMainDivFlex.className = "delete_main_div_flex";
+    let deleteMainDiv = document.createElement("div");
+    deleteMainDiv.className = "delete_main_div";
+
+    let deleteMainDivTitle = document.createElement("div");
+    deleteMainDivTitle.innerText = "Are you sure you want to delete this item?";
+    deleteMainDivTitle.className = "delete_main_div_title";
+
+    let deleteMainDivSeperator = document.createElement("div");
+    deleteMainDivSeperator.className = "delete_main_div_seperator";
+
+    let deleteMainDivButtons = document.createElement("div");
+    deleteMainDivButtons.className = "delete_main_div_buttons";
+
+    let deleteButton = document.createElement("button");
+    deleteButton.className = "delete_main_div_delete_button";
+    deleteButton.innerText = "Delete";
+
+    let closeButton = document.createElement("button");
+    closeButton.className = "delete_main_div_close_button";
+    closeButton.innerText = "Close";
+
+    // Child elements to parents element
+    deleteMainDivButtons.appendChild(deleteButton);
+    deleteMainDivButtons.appendChild(closeButton);
+
+    deleteMainDiv.appendChild(deleteMainDivTitle);
+    deleteMainDiv.appendChild(deleteMainDivSeperator);
+    deleteMainDiv.appendChild(deleteMainDivButtons);
+
+    deleteMainDivFlex.appendChild(deleteMainDiv);
+
+    // Root element
+    let rootElement = document.documentElement;
+    rootElement.appendChild(deleteMainDivFlex);
+
+    async function DeletePost() {
+
+        await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+            method: 'DELETE',
+        })
+        .then((stream) => {return stream.json()})
+        .then((data) => {
+            console.log(data);
+        })
+
+        Close(rootElement, deleteMainDivFlex)
+
+    }
+
+    deleteButton.addEventListener("click", DeletePost);
+
+    closeButton.addEventListener("click", () => {
+        Close(rootElement, deleteMainDivFlex);
+    });
+
+}
+
+// Delete();
