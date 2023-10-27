@@ -1,9 +1,15 @@
+import { getData } from "./modules/getData.js";
+import { Create } from "./modules/Create.js";
+import { Delete } from "./modules/Delete.js";
+import { Close } from "./modules/Close.js";
+import { Edit } from "./modules/Edit.js";
+
 ///////////////////////////////////////////////////////////////
 
 
 let parentTodolist = document.getElementById("main_div_list_div");
 
-// window.location.href = "http://127.0.0.1:5501/#";
+
 
 function CheckHref() {
     switch (window.location.href) {
@@ -27,7 +33,9 @@ function CheckHref() {
 let todolist = document.createElement("div");
 todolist.className = "main_div_list";
 todolist.id = "main_div_list";
-parentTodolist.appendChild(todolist);
+
+
+// parentTodolist.appendChild(todolist);
 
 // Create header of todolist
 let headerTodoList = document.createElement("div");
@@ -121,269 +129,267 @@ todolist.appendChild(parentTitleDiv);
 // console.log(window.location.href);
 
 
+// let create_btn = document.getElementById("main_div_create_btn");
+
+export { parentTodolist, todolist };
 
 ///////////////////////////   Function Edit   ///////////////////////////
 
-async function Edit(data) {
+// async function Edit(data) {
 
 
-    console.log(data);
+//     console.log(data);
 
-    //////////////
+//     //////////////
 
-    // Delete posts page
-    parentTodolist.removeChild(todolist);
+//     // Delete posts page
+//     parentTodolist.removeChild(todolist);
 
-    // Add Create page
-    let createDiv = document.createElement("div");
+//     // Add Create page
+//     let createDiv = document.createElement("div");
 
-    // Add create title
-    let createDivTitle = document.createElement("div");
-    let createTitle = document.createElement("div");
+//     // Add create title
+//     let createDivTitle = document.createElement("div");
+//     let createTitle = document.createElement("div");
 
-    // Add buttons Create and Cancel
-    let createButtonCancelButtonDivFlex = document.createElement("div");
-    createButtonCancelButtonDivFlex.className = "create_buttons_div_flex";
-    let createButtonCancelButtonDiv = document.createElement("div");
-    createButtonCancelButtonDiv.className = "create_buttons_div";
+//     // Add buttons Create and Cancel
+//     let createButtonCancelButtonDivFlex = document.createElement("div");
+//     createButtonCancelButtonDivFlex.className = "create_buttons_div_flex";
+//     let createButtonCancelButtonDiv = document.createElement("div");
+//     createButtonCancelButtonDiv.className = "create_buttons_div";
 
-    let saveButton = document.createElement("button");
-    saveButton.className = "create_button";
-    saveButton.innerText = "Save";
+//     let saveButton = document.createElement("button");
+//     saveButton.className = "create_button";
+//     saveButton.innerText = "Save";
 
-    let cancelButton = document.createElement("button");
-    cancelButton.className = "cancel_button";
-    cancelButton.innerText = "Cancel";
+//     let cancelButton = document.createElement("button");
+//     cancelButton.className = "cancel_button";
+//     cancelButton.innerText = "Cancel";
 
-    createButtonCancelButtonDiv.appendChild(saveButton);
-    createButtonCancelButtonDiv.appendChild(cancelButton);
-    createButtonCancelButtonDivFlex.appendChild(createButtonCancelButtonDiv);
+//     createButtonCancelButtonDiv.appendChild(saveButton);
+//     createButtonCancelButtonDiv.appendChild(cancelButton);
+//     createButtonCancelButtonDivFlex.appendChild(createButtonCancelButtonDiv);
 
 
-    // createDivTitle
-    createDivTitle.innerHTML = `<div class="main_div_body_title_create_btn">
-                                        <span class="main_div_body_title">Edit Post</span>
-                                    </div>`;
-    createDivTitle.appendChild(createTitle);
-    createDiv.appendChild(createDivTitle);
+//     // createDivTitle
+//     createDivTitle.innerHTML = `<div class="main_div_body_title_create_btn">
+//                                         <span class="main_div_body_title">Edit Post</span>
+//                                     </div>`;
+//     createDivTitle.appendChild(createTitle);
+//     createDiv.appendChild(createDivTitle);
 
 
-    // Inputs div
-    let inputsDIV = document.createElement("div");
-    inputsDIV.className = "create_inputs_div";
+//     // Inputs div
+//     let inputsDIV = document.createElement("div");
+//     inputsDIV.className = "create_inputs_div";
 
-    let inputLeftDiv = document.createElement("div");
-    inputLeftDiv.className = "create_inputs_left_div_pos";
+//     let inputLeftDiv = document.createElement("div");
+//     inputLeftDiv.className = "create_inputs_left_div_pos";
 
-    let inputRightDiv = document.createElement("div");
-    inputRightDiv.className = "create_inputs_right_div_pos";
+//     let inputRightDiv = document.createElement("div");
+//     inputRightDiv.className = "create_inputs_right_div_pos";
 
 
-    //inputLeftDiv block
-    let inputLeftDivTitleInput = document.createElement("input");
-    inputLeftDivTitleInput.placeholder = "Title";
-    inputLeftDivTitleInput.className = "create_inputs_left_div_input";
+//     //inputLeftDiv block
+//     let inputLeftDivTitleInput = document.createElement("input");
+//     inputLeftDivTitleInput.placeholder = "Title";
+//     inputLeftDivTitleInput.className = "create_inputs_left_div_input";
 
-    let users = [];
+//     let users = [];
 
-    await fetch("https://jsonplaceholder.typicode.com/users")
-        .then((stream) => { return stream.json() })
-        .then((data) => {
-            console.log(data);
-            users = data;
-        })
+//     await fetch("https://jsonplaceholder.typicode.com/users")
+//         .then((stream) => { return stream.json() })
+//         .then((data) => {
+//             console.log(data);
+//             users = data;
+//         })
 
 
-    let inputLeftDivUserSelect = document.createElement("div");
-    let select = document.createElement("select");
-    select.className = "create_inputs_left_div_input";
-    let option = document.createElement("option");
-    option.innerText = "Select User";
-    select.appendChild(option);
+//     let inputLeftDivUserSelect = document.createElement("div");
+//     let select = document.createElement("select");
+//     select.className = "create_inputs_left_div_input";
+//     let option = document.createElement("option");
+//     option.innerText = "Select User";
+//     select.appendChild(option);
 
-    let userIds = users.map(({ id }) => id);
+//     let userIds = users.map(({ id }) => id);
 
-    users.map((user, index) => {
-        let option = document.createElement("option");
-        option.innerText = user.name;
-        option.value = userIds[index];
-        select.appendChild(option);
-    });
+//     users.map((user, index) => {
+//         let option = document.createElement("option");
+//         option.innerText = user.name;
+//         option.value = userIds[index];
+//         select.appendChild(option);
+//     });
 
-    inputLeftDivUserSelect.appendChild(select);
+//     inputLeftDivUserSelect.appendChild(select);
 
-    // Input left div elements
-    inputLeftDiv.appendChild(inputLeftDivTitleInput);
-    inputLeftDiv.appendChild(inputLeftDivUserSelect);
+//     // Input left div elements
+//     inputLeftDiv.appendChild(inputLeftDivTitleInput);
+//     inputLeftDiv.appendChild(inputLeftDivUserSelect);
 
-    //inputRightDiv block
-    let inputRightDivBodyInput = document.createElement("input");
-    inputRightDivBodyInput.placeholder = "Body";
-    inputRightDivBodyInput.className = "create_inputs_right_div_input";
+//     //inputRightDiv block
+//     let inputRightDivBodyInput = document.createElement("input");
+//     inputRightDivBodyInput.placeholder = "Body";
+//     inputRightDivBodyInput.className = "create_inputs_right_div_input";
 
-    inputRightDiv.appendChild(inputRightDivBodyInput);
+//     inputRightDiv.appendChild(inputRightDivBodyInput);
 
-    //inputLeftDiv and inputRightDiv to inputsDIV
-    inputsDIV.appendChild(inputLeftDiv);
-    inputsDIV.appendChild(inputRightDiv);
+//     //inputLeftDiv and inputRightDiv to inputsDIV
+//     inputsDIV.appendChild(inputLeftDiv);
+//     inputsDIV.appendChild(inputRightDiv);
 
-    parentTodolist.appendChild(createDiv);
-    parentTodolist.appendChild(inputsDIV);
-    parentTodolist.appendChild(createButtonCancelButtonDivFlex);
+//     parentTodolist.appendChild(createDiv);
+//     parentTodolist.appendChild(inputsDIV);
+//     parentTodolist.appendChild(createButtonCancelButtonDivFlex);
 
-    function Cancel() {
-        window.location.href = "http://127.0.0.1:5501/#/posts";
-        parentTodolist.removeChild(createDiv);
-        parentTodolist.removeChild(inputsDIV);
-        parentTodolist.removeChild(createButtonCancelButtonDivFlex);
-        parentTodolist.appendChild(todolist);
-        getData();
-    }
+//     function Cancel() {
+//         window.location.href = "http://127.0.0.1:5501/#/posts";
+//         parentTodolist.removeChild(createDiv);
+//         parentTodolist.removeChild(inputsDIV);
+//         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
+//         parentTodolist.appendChild(todolist);
+//         getData();
+//     }
 
-    cancelButton.addEventListener("click", Cancel);
+//     cancelButton.addEventListener("click", Cancel);
 
-    function EditPost() {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${data.id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                id: data.id,
-                title: inputLeftDivTitleInput.value,
-                body: inputRightDivBodyInput.value,
-                userId: select.value,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((json) => console.warn(json));
+//     function EditPost() {
+//         fetch(`https://jsonplaceholder.typicode.com/posts/${data.id}`, {
+//             method: 'PUT',
+//             body: JSON.stringify({
+//                 id: data.id,
+//                 title: inputLeftDivTitleInput.value,
+//                 body: inputRightDivBodyInput.value,
+//                 userId: select.value,
+//             }),
+//             headers: {
+//                 'Content-type': 'application/json; charset=UTF-8',
+//             },
+//         })
+//             .then((response) => response.json())
+//             .then((json) => console.warn(json));
+
+
+//         window.location.href = "http://127.0.0.1:5501/#/posts";
 
+//         Cancel();
+//     }
+
+//     saveButton.addEventListener("click", EditPost);
+
+//     /////////////
+
+//     window.location.href = `http://127.0.0.1:5501/#/posts/edit/${data.id}`;
+
+// }
+
 
-        window.location.href = "http://127.0.0.1:5501/#/posts";
 
-        Cancel();
-    }
 
-    saveButton.addEventListener("click", EditPost);
+// async function getData() {
 
-    /////////////
+//     window.location.href = "http://127.0.0.1:5501/#/posts";
 
+//     let posts = [];
+//     let users = [];
 
-    window.location.href = `http://127.0.0.1:5501/#/posts/edit/${data.id}`;
+//     let urls = [
+//         fetch("https://jsonplaceholder.typicode.com/posts"),
+//         fetch("https://jsonplaceholder.typicode.com/users")
+//     ];
 
-}
 
+//     await Promise.all(urls)
+//         .then((stream) => {
+//             return Promise.all(stream.map((info) => info.json()))
+//         }).then((data) => {
+//             [posts, users] = data;
+//             console.log(posts);
+//             console.log(users);
+//         })
 
 
+//     posts.map((post, i) => {
+//         // Parent div
+//         let parent_div = document.createElement("div");
 
-async function getData() {
+//         // Paragraphs 
+//         let p_id = document.createElement("p");
+//         let p_user_name = document.createElement("p");
+//         let p_title = document.createElement("p");
 
-    window.location.href = "http://127.0.0.1:5501/#/posts";
+//         let div_actions = document.createElement("div");
+//         let edit_icon = document.createElement("img");
+//         let delete_icon = document.createElement("img");
 
-    // console.log(window.location.pathname);
+//         // Draw background gray or white
+//         if (i % 2 === 0) {
+//             parent_div.style.background = "#FFF";
+//         } else {
+//             parent_div.style.background = "#F5F6FA";
+//         }
 
-    let posts = [];
-    let users = [];
+//         // Parent div style
+//         parent_div.className = "main_div_list_item_div";
 
-    let urls = [
-        fetch("https://jsonplaceholder.typicode.com/posts"),
-        fetch("https://jsonplaceholder.typicode.com/users")
-    ];
+//         //Find username in array of users
+//         users.map((user) => {
+//             if (post.userId === user.id) {
+//                 p_user_name.innerText = user.name;
+//             }
+//         })
 
+//         // Add post info to paragraph
+//         p_id.innerText = post.id;
+//         p_title.innerText = post.title;
 
-    await Promise.all(urls)
-        .then((stream) => {
-            return Promise.all(stream.map((info) => info.json()))
-        }).then((data) => {
-            [posts, users] = data;
-            console.log(posts);
-            console.log(users);
-        })
+//         // Add classnames and ids to paragraphs
+//         p_id.id = "main_div_item_id";
+//         p_user_name.id = "main_div_item_user_name";
+//         p_title.id = "main_div_item_title";
+//         div_actions.id = "main_div_item_actions";
 
+//         // Add icons to actions
+//         edit_icon.src = "./icons/main_list/edit_icon.svg";
+//         edit_icon.style.cursor = "pointer";
+//         delete_icon.src = "./icons/main_list/delete_icon.svg";
+//         delete_icon.style.cursor = "pointer";
+//         div_actions.appendChild(edit_icon);
+//         div_actions.appendChild(delete_icon);
 
-    posts.map((post, i) => {
-        // Parent div
-        let parent_div = document.createElement("div");
+//         // Add elements to parent div
+//         parent_div.appendChild(p_id);
+//         parent_div.appendChild(p_user_name);
+//         parent_div.appendChild(p_title);
+//         parent_div.appendChild(div_actions);
 
-        // Paragraphs 
-        let p_id = document.createElement("p");
-        let p_user_name = document.createElement("p");
-        let p_title = document.createElement("p");
+//         delete_icon.addEventListener("click", () => {
+//             Delete(post.id);
+//         });
 
-        let div_actions = document.createElement("div");
-        let edit_icon = document.createElement("img");
-        let delete_icon = document.createElement("img");
+//         p_id.addEventListener("click", function () {
+//             Edit(post);
+//         });
 
-        // Draw background gray or white
-        if (i % 2 === 0) {
-            parent_div.style.background = "#FFF";
-        } else {
-            parent_div.style.background = "#F5F6FA";
-        }
+//         p_user_name.addEventListener("click", function () {
+//             Edit(post);
+//         });
 
-        // Parent div style
-        parent_div.className = "main_div_list_item_div";
+//         p_title.addEventListener("click", function () {
+//             Edit(post);
+//         });
 
-        //Find username in array of users
-        users.map((user) => {
-            if (post.userId === user.id) {
-                p_user_name.innerText = user.name;
-            }
-        })
+//         edit_icon.addEventListener("click", function () {
+//             Edit(post);
+//         });
 
-        // Add post info to paragraph
-        p_id.innerText = post.id;
-        p_title.innerText = post.title;
 
-        // Add classnames and ids to paragraphs
-        p_id.id = "main_div_item_id";
-        p_user_name.id = "main_div_item_user_name";
-        p_title.id = "main_div_item_title";
-        div_actions.id = "main_div_item_actions";
+//         // Add parent div to todolist
+//         todolist.appendChild(parent_div);
 
-        // Add icons to actions
-        edit_icon.src = "./icons/main_list/edit_icon.svg";
-        edit_icon.style.cursor = "pointer";
-        delete_icon.src = "./icons/main_list/delete_icon.svg";
-        delete_icon.style.cursor = "pointer";
-        div_actions.appendChild(edit_icon);
-        div_actions.appendChild(delete_icon);
+//     })
 
-        // Add elements to parent div
-        parent_div.appendChild(p_id);
-        parent_div.appendChild(p_user_name);
-        parent_div.appendChild(p_title);
-        parent_div.appendChild(div_actions);
-
-        delete_icon.addEventListener("click", () => {
-            Delete(post.id);
-        });
-
-        p_id.addEventListener("click", function () {
-            Edit(post);
-        });
-
-        p_user_name.addEventListener("click", function () {
-            Edit(post);
-        });
-
-        p_title.addEventListener("click", function () {
-            Edit(post);
-        });
-
-        edit_icon.addEventListener("click", function () {
-            Edit(post);
-        });
-
-
-        // Add parent div to todolist
-        todolist.appendChild(parent_div);
-
-    })
-
-
-
-}
+// }
 
 
 getData();
@@ -391,216 +397,211 @@ getData();
 
 
 
-let create_btn = document.getElementById("main_div_create_btn");
-
-async function Create() {
-
-    // CheckHref();
-
-    // Delete posts page
-    parentTodolist.removeChild(todolist);
-
-    // Add Create page
-    let createDiv = document.createElement("div");
-
-    // Add create title
-    let createDivTitle = document.createElement("div");
-    let createTitle = document.createElement("div");
-
-    // Add buttons Create and Cancel
-    let createButtonCancelButtonDivFlex = document.createElement("div");
-    createButtonCancelButtonDivFlex.className = "create_buttons_div_flex";
-    let createButtonCancelButtonDiv = document.createElement("div");
-    createButtonCancelButtonDiv.className = "create_buttons_div";
-
-    let createButton = document.createElement("button");
-    createButton.className = "create_button";
-    createButton.innerText = "Create";
-
-    let cancelButton = document.createElement("button");
-    cancelButton.className = "cancel_button";
-    cancelButton.innerText = "Cancel";
-
-    createButtonCancelButtonDiv.appendChild(createButton);
-    createButtonCancelButtonDiv.appendChild(cancelButton);
-    createButtonCancelButtonDivFlex.appendChild(createButtonCancelButtonDiv);
 
 
-    // createDivTitle
-    createDivTitle.innerHTML = `<div class="main_div_body_title_create_btn">
-                                    <span class="main_div_body_title">Create Post</span>
-                                </div>`;
+// async function Create() {
 
-    createDivTitle.appendChild(createTitle);
-    createDiv.appendChild(createDivTitle);
+//     // CheckHref();
 
+//     // Delete posts page
+//     parentTodolist.removeChild(todolist);
 
-    // Inputs div
-    let inputsDIV = document.createElement("div");
-    inputsDIV.className = "create_inputs_div";
+//     // Add Create page
+//     let createDiv = document.createElement("div");
 
-    let inputLeftDiv = document.createElement("div");
-    inputLeftDiv.className = "create_inputs_left_div_pos";
+//     // Add create title
+//     let createDivTitle = document.createElement("div");
+//     let createTitle = document.createElement("div");
 
-    let inputRightDiv = document.createElement("div");
-    inputRightDiv.className = "create_inputs_right_div_pos";
+//     // Add buttons Create and Cancel
+//     let createButtonCancelButtonDivFlex = document.createElement("div");
+//     createButtonCancelButtonDivFlex.className = "create_buttons_div_flex";
+//     let createButtonCancelButtonDiv = document.createElement("div");
+//     createButtonCancelButtonDiv.className = "create_buttons_div";
 
+//     let createButton = document.createElement("button");
+//     createButton.className = "create_button";
+//     createButton.innerText = "Create";
 
-    //inputLeftDiv block
-    let inputLeftDivTitleInput = document.createElement("input");
-    inputLeftDivTitleInput.placeholder = "Title";
-    inputLeftDivTitleInput.className = "create_inputs_left_div_input";
+//     let cancelButton = document.createElement("button");
+//     cancelButton.className = "cancel_button";
+//     cancelButton.innerText = "Cancel";
 
-    let users = [];
-
-    await fetch("https://jsonplaceholder.typicode.com/users")
-        .then((stream) => { return stream.json() })
-        .then((data) => {
-            console.log(data);
-            users = data;
-        })
+//     createButtonCancelButtonDiv.appendChild(createButton);
+//     createButtonCancelButtonDiv.appendChild(cancelButton);
+//     createButtonCancelButtonDivFlex.appendChild(createButtonCancelButtonDiv);
 
 
-    let inputLeftDivUserSelect = document.createElement("div");
-    let select = document.createElement("select");
-    select.className = "create_inputs_left_div_input";
-    let option = document.createElement("option");
-    option.innerText = "Select User";
-    select.appendChild(option);
+//     // createDivTitle
+//     createDivTitle.innerHTML = `<div class="main_div_body_title_create_btn">
+//                                     <span class="main_div_body_title">Create Post</span>
+//                                 </div>`;
 
-    let userIds = users.map(({ id }) => id);
+//     createDivTitle.appendChild(createTitle);
+//     createDiv.appendChild(createDivTitle);
 
-    users.map((user, index) => {
-        let option = document.createElement("option");
-        option.innerText = user.name;
-        option.value = userIds[index];
-        select.appendChild(option);
-    });
 
-    inputLeftDivUserSelect.appendChild(select);
+//     // Inputs div
+//     let inputsDIV = document.createElement("div");
+//     inputsDIV.className = "create_inputs_div";
 
-    // Input left div elements
-    inputLeftDiv.appendChild(inputLeftDivTitleInput);
-    inputLeftDiv.appendChild(inputLeftDivUserSelect);
+//     let inputLeftDiv = document.createElement("div");
+//     inputLeftDiv.className = "create_inputs_left_div_pos";
 
-    //inputRightDiv block
-    let inputRightDivBodyInput = document.createElement("input");
-    inputRightDivBodyInput.placeholder = "Body";
-    inputRightDivBodyInput.className = "create_inputs_right_div_input";
+//     let inputRightDiv = document.createElement("div");
+//     inputRightDiv.className = "create_inputs_right_div_pos";
 
-    inputRightDiv.appendChild(inputRightDivBodyInput);
 
-    //inputLeftDiv and inputRightDiv to inputsDIV
-    inputsDIV.appendChild(inputLeftDiv);
-    inputsDIV.appendChild(inputRightDiv);
+//     //inputLeftDiv block
+//     let inputLeftDivTitleInput = document.createElement("input");
+//     inputLeftDivTitleInput.placeholder = "Title";
+//     inputLeftDivTitleInput.className = "create_inputs_left_div_input";
 
-    parentTodolist.appendChild(createDiv);
-    parentTodolist.appendChild(inputsDIV);
-    parentTodolist.appendChild(createButtonCancelButtonDivFlex);
+//     let users = [];
 
-    function Cancel() {
-        window.location.href = "http://127.0.0.1:5501/#/posts";
-        parentTodolist.removeChild(createDiv);
-        parentTodolist.removeChild(inputsDIV);
-        parentTodolist.removeChild(createButtonCancelButtonDivFlex);
-        parentTodolist.appendChild(todolist);
-        getData();
-    }
+//     await fetch("https://jsonplaceholder.typicode.com/users")
+//         .then((stream) => { return stream.json() })
+//         .then((data) => {
+//             console.log(data);
+//             users = data;
+//         })
 
-    cancelButton.addEventListener("click", Cancel);
 
-    function CreatePost() {
-        fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            body: JSON.stringify({
-                title: inputLeftDivTitleInput.value,
-                body: inputRightDivBodyInput.value,
-                userId: select.value,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((json) => console.log(json));
+//     let inputLeftDivUserSelect = document.createElement("div");
+//     let select = document.createElement("select");
+//     select.className = "create_inputs_left_div_input";
+//     let option = document.createElement("option");
+//     option.innerText = "Select User";
+//     select.appendChild(option);
 
-        window.location.href = "http://127.0.0.1:5501/#/posts";
+//     let userIds = users.map(({ id }) => id);
 
-        Cancel();
-    }
+//     users.map((user, index) => {
+//         let option = document.createElement("option");
+//         option.innerText = user.name;
+//         option.value = userIds[index];
+//         select.appendChild(option);
+//     });
 
-    createButton.addEventListener("click", CreatePost);
+//     inputLeftDivUserSelect.appendChild(select);
 
-    window.location.href = "http://127.0.0.1:5501/#/posts/create";
+//     // Input left div elements
+//     inputLeftDiv.appendChild(inputLeftDivTitleInput);
+//     inputLeftDiv.appendChild(inputLeftDivUserSelect);
 
-}
+//     //inputRightDiv block
+//     let inputRightDivBodyInput = document.createElement("input");
+//     inputRightDivBodyInput.placeholder = "Body";
+//     inputRightDivBodyInput.className = "create_inputs_right_div_input";
 
-create_btn.addEventListener("click", Create);
+//     inputRightDiv.appendChild(inputRightDivBodyInput);
 
-function Close(parentElement, childElement) {
-    parentElement.removeChild(childElement);
-}
+//     //inputLeftDiv and inputRightDiv to inputsDIV
+//     inputsDIV.appendChild(inputLeftDiv);
+//     inputsDIV.appendChild(inputRightDiv);
 
-async function Delete(id) {
+//     parentTodolist.appendChild(createDiv);
+//     parentTodolist.appendChild(inputsDIV);
+//     parentTodolist.appendChild(createButtonCancelButtonDivFlex);
 
-    // Delete main div
-    let deleteMainDivFlex = document.createElement("div");
-    deleteMainDivFlex.className = "delete_main_div_flex";
-    let deleteMainDiv = document.createElement("div");
-    deleteMainDiv.className = "delete_main_div";
+//     function Cancel() {
+//         window.location.href = "http://127.0.0.1:5501/#/posts";
+//         parentTodolist.removeChild(createDiv);
+//         parentTodolist.removeChild(inputsDIV);
+//         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
+//         parentTodolist.appendChild(todolist);
+//         getData();
+//     }
 
-    let deleteMainDivTitle = document.createElement("div");
-    deleteMainDivTitle.innerText = "Are you sure you want to delete this item?";
-    deleteMainDivTitle.className = "delete_main_div_title";
+//     cancelButton.addEventListener("click", Cancel);
 
-    let deleteMainDivSeperator = document.createElement("div");
-    deleteMainDivSeperator.className = "delete_main_div_seperator";
+//     function CreatePost() {
+//         fetch('https://jsonplaceholder.typicode.com/posts', {
+//             method: 'POST',
+//             body: JSON.stringify({
+//                 title: inputLeftDivTitleInput.value,
+//                 body: inputRightDivBodyInput.value,
+//                 userId: select.value,
+//             }),
+//             headers: {
+//                 'Content-type': 'application/json; charset=UTF-8',
+//             },
+//         })
+//             .then((response) => response.json())
+//             .then((json) => console.log(json));
 
-    let deleteMainDivButtons = document.createElement("div");
-    deleteMainDivButtons.className = "delete_main_div_buttons";
+//         window.location.href = "http://127.0.0.1:5501/#/posts";
 
-    let deleteButton = document.createElement("button");
-    deleteButton.className = "delete_main_div_delete_button";
-    deleteButton.innerText = "Delete";
+//         Cancel();
+//     }
 
-    let closeButton = document.createElement("button");
-    closeButton.className = "delete_main_div_close_button";
-    closeButton.innerText = "Close";
+//     createButton.addEventListener("click", CreatePost);
 
-    // Child elements to parents element
-    deleteMainDivButtons.appendChild(deleteButton);
-    deleteMainDivButtons.appendChild(closeButton);
+//     window.location.href = "http://127.0.0.1:5501/#/posts/create";
 
-    deleteMainDiv.appendChild(deleteMainDivTitle);
-    deleteMainDiv.appendChild(deleteMainDivSeperator);
-    deleteMainDiv.appendChild(deleteMainDivButtons);
+// }
 
-    deleteMainDivFlex.appendChild(deleteMainDiv);
+// create_btn.addEventListener("click", Create);
 
-    // Root element
-    let rootElement = document.documentElement;
-    rootElement.appendChild(deleteMainDivFlex);
 
-    async function DeletePost() {
+// async function Delete(id) {
 
-        await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-            method: 'DELETE',
-        })
-        .then((stream) => {return stream.json()})
-        .then((data) => {
-            console.log(data);
-        })
+//     // Delete main div
+//     let deleteMainDivFlex = document.createElement("div");
+//     deleteMainDivFlex.className = "delete_main_div_flex";
+//     let deleteMainDiv = document.createElement("div");
+//     deleteMainDiv.className = "delete_main_div";
 
-        Close(rootElement, deleteMainDivFlex)
+//     let deleteMainDivTitle = document.createElement("div");
+//     deleteMainDivTitle.innerText = "Are you sure you want to delete this item?";
+//     deleteMainDivTitle.className = "delete_main_div_title";
 
-    }
+//     let deleteMainDivSeperator = document.createElement("div");
+//     deleteMainDivSeperator.className = "delete_main_div_seperator";
 
-    deleteButton.addEventListener("click", DeletePost);
+//     let deleteMainDivButtons = document.createElement("div");
+//     deleteMainDivButtons.className = "delete_main_div_buttons";
 
-    closeButton.addEventListener("click", () => {
-        Close(rootElement, deleteMainDivFlex);
-    });
+//     let deleteButton = document.createElement("button");
+//     deleteButton.className = "delete_main_div_delete_button";
+//     deleteButton.innerText = "Delete";
 
-}
+//     let closeButton = document.createElement("button");
+//     closeButton.className = "delete_main_div_close_button";
+//     closeButton.innerText = "Close";
 
-// Delete();
+//     // Child elements to parents element
+//     deleteMainDivButtons.appendChild(deleteButton);
+//     deleteMainDivButtons.appendChild(closeButton);
+
+//     deleteMainDiv.appendChild(deleteMainDivTitle);
+//     deleteMainDiv.appendChild(deleteMainDivSeperator);
+//     deleteMainDiv.appendChild(deleteMainDivButtons);
+
+//     deleteMainDivFlex.appendChild(deleteMainDiv);
+
+//     // Root element
+//     let rootElement = document.documentElement;
+//     rootElement.appendChild(deleteMainDivFlex);
+
+//     async function DeletePost() {
+
+//         await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+//             method: 'DELETE',
+//         })
+//         .then((stream) => {return stream.json()})
+//         .then((data) => {
+//             console.log(data);
+//         })
+
+//         Close(rootElement, deleteMainDivFlex)
+
+//     }
+
+//     deleteButton.addEventListener("click", DeletePost);
+
+//     closeButton.addEventListener("click", () => {
+//         Close(rootElement, deleteMainDivFlex);
+//     });
+
+// }
