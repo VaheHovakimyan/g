@@ -1,13 +1,22 @@
-import { parentTodolist, todolist } from "../index.js";
+import { getData } from "./getData.js";
+import { todolist } from "../index.js";
+import { parentTodolist } from "../index.js";
+
+
+
+
 
 export async function Edit(data) {
 
 
     console.log(data);
 
+    // Delete posts page
+    let parentTodolist = document.querySelector("#main_div_list_div")
+    parentTodolist.removeChild(document.querySelector("#main_div_list"));
 
     // Delete posts page
-    parentTodolist.removeChild(todolist);
+    // parentTodolist.removeChild(todolist)
 
     // Add Create page
     let createDiv = document.createElement("div");
@@ -111,7 +120,6 @@ export async function Edit(data) {
         parentTodolist.removeChild(createDiv);
         parentTodolist.removeChild(inputsDIV);
         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
-        parentTodolist.appendChild(todolist);
         getData();
     }
 

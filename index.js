@@ -33,9 +33,9 @@ function CheckHref() {
 let todolist = document.createElement("div");
 todolist.className = "main_div_list";
 todolist.id = "main_div_list";
-
-
 // parentTodolist.appendChild(todolist);
+
+
 
 // Create header of todolist
 let headerTodoList = document.createElement("div");
@@ -392,7 +392,7 @@ export { parentTodolist, todolist };
 // }
 
 
-getData();
+// getData();
 
 
 

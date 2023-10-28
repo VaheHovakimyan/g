@@ -1,5 +1,5 @@
 import { getData } from "./getData.js";
-import { parentTodolist } from "../index.js";
+// import { parentTodolist } from "../index.js";
 import { todolist } from "../index.js";
 
 // getData();
@@ -119,7 +119,7 @@ export async function Create() {
         parentTodolist.removeChild(createDiv);
         parentTodolist.removeChild(inputsDIV);
         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
-        parentTodolist.appendChild(todolist);
+        // parentTodolist.appendChild(todolist);
         getData();
     }
 

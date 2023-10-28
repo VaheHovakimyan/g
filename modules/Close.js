@@ -1,3 +1,3 @@
-export  function Close(parentElement, childElement) {
+export function Close(parentElement, childElement) {
     parentElement.removeChild(childElement);
 }
