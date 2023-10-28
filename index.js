@@ -11,29 +11,13 @@ let parentTodolist = document.getElementById("main_div_list_div");
 
 
 
-function CheckHref() {
-    switch (window.location.href) {
-        case "http://127.0.0.1:5501/#/post":
-            getData();
-            break;
-        case "http://127.0.0.1:5501/#/posts/create":
-            Create();
-            break;
-        case "http://127.0.0.1:5501/#/posts/edit":
-            break;
-        default:
-            window.location.href = "http://127.0.0.1:5501/#/pos"
-            break;
-    }
-}
-
 
 
 // Create todolist
 let todolist = document.createElement("div");
 todolist.className = "main_div_list";
 todolist.id = "main_div_list";
-// parentTodolist.appendChild(todolist);
+// parentTodolist.appendChild(todolist);     
 
 
 
@@ -126,8 +110,92 @@ parentTitleDiv.appendChild(titleDiv);
 todolist.appendChild(parentTitleDiv);
 
 
-// console.log(window.location.href);
+// function CheckHref() {
+//     console.log(window.location.href);
+//     switch (window.location.href) {
+//         case "http://127.0.0.1:5501/#/posts":
+//             getData();
+//             break;
+//         case "http://127.0.0.1:5501/#/posts/create":
+//             Create();
+//             break;
+//         default:
+//             window.location.href = "http://127.0.0.1:5501/#/posts"
+//     }
+// }
 
+
+
+window.onpopstate = (event) => {
+    console.log(
+        `location: ${document.location.pathname}, state: ${JSON.stringify(event.state)}`,
+    );
+
+    // history.pushState({}, "page 1", document.location.pathname);
+
+
+
+    console.log(history);
+};
+
+// history.pushState({ page: 1 }, "title 1", "?page=1");
+// history.pushState({ page: 2 }, "title 2", "?page=2");
+// history.replaceState({ page: 3 }, "title 3", "?page=3");
+// history.back(); // Logs "location: http://example.com/example.html?page=1, state: {"page":1}"
+// history.back(); // Logs "location: http://example.com/example.html, state: null"
+// history.go(2); // Logs "location: http://example.com/example.html?page=3, state: {"page":3}"
+
+
+console.log(history);
+
+// window.onhashchange = function () {
+//     //blah blah blah
+//     console.log("HHHHHHH");
+// }
+
+
+
+
+
+
+
+// window.onpopstate = function (event) {
+
+//     console.log(document.location);
+
+//     switch (document.location) {
+//         case "http://127.0.0.1:5501/#/posts":
+//             getData();
+//             break;
+//         case "http://127.0.0.1:5501/#/posts/create":
+//             Create();
+//             break;
+//         case "http://127.0.0.1:5501/#/posts/edit":
+//             break;
+//         default:
+//             window.location.href = "http://127.0.0.1:5501/#/posts"
+//             break;
+//     }
+
+//     console.log("location: " + document.location);
+// };
+
+// window.addEventListener('popstate', function(event) {
+//     // Handle the popstate event, and use event.state to access the state object.
+//     const state = event.state;
+
+//     console.log(event);
+//     console.log(state);
+
+//     if (state) {
+//         console.log("kdhgf");
+
+//         console.log(state);
+//         // Perform actions based on the state object, e.g., update the UI.
+//     }
+// });
+
+// CheckHref();
 
 // let create_btn = document.getElementById("main_div_create_btn");
 
