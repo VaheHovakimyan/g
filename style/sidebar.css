@@ -9,20 +9,28 @@
     background: #E9ECEF;
 }
 
-.sidebar_group_div {
+.arrow_icon{
+    width: 24px;
+    height: 24px;
+    transform: rotate(90deg);
+}
+
+.hide_arrow_icon{
+    display: none;
+}
+
+.sidebar_group_title {
     display: flex;
     flex-direction: column;
     padding: 8px 16px 8px 32px;
     gap: 10px;
-}
-
-.sidebar_group_title {
     color: #ADB5BD;
     font-family: Inter;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 175%;
+    border-bottom: 1px #E9ECEF solid;
 }
 
 .sidebar_page_div{
@@ -32,6 +40,10 @@
 }
 
 .sidebar_pages_title {
+    display: flex;
+    align-items: center;
+    padding: 2px 2px 2px 12px;
+    gap: 10px;
     color: #8A92A6;
     font-family: Inter;
     font-size: 16px;
@@ -41,5 +53,14 @@
 }
 
 .sidebar_page_icon{
+    width: 34px;
+    height: 34px;
     padding: 6px;
+}
+
+.sidebar_page_div_name{
+    display: flex;
+    align-items: center;
+    padding: 2px 2px 2px 12px;
+    gap: 10px;
 }
