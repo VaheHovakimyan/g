@@ -4,63 +4,111 @@ import menu from './menu.json' assert {type: 'json'};
 let menu_container = document.getElementById("menu_elements_container");
 
 
-      // Function to recursively draw JSON as a menu
-      function drawMenu(data, container) {
+
+      // Function to recursively draw JSON
+      function drawJSON(data, container) {
+
         const ul = document.createElement("ul");
-     
+        let liTitle = document.createElement("h1");
+
+        // console.log(data.group);
+
+        if (data.group !== undefined) {
+
+          liTitle.innerText = data.group;
+          ul.appendChild(liTitle);
+          
+        }
         
+        let i = 0;
 
-        (data || []).map((group, i) => {
-          let li = document.createElement("li");
-          li.textContent = group.group;
+        for (const key in data) {
+          const li = document.createElement("li");
+          
 
-          // console.log(i);
+          if (typeof data[key] === "object") {
 
-          let groupArr = group.pages;
+            li.appendChild(drawJSON(data[key], container));
+            ul.appendChild(li);
+            
+          } else if(data.title !== undefined) {
 
-                   
-          (groupArr || []).map((item) => {
-            console.log(item);
-
-          // console.log(item.children.length);
-          // console.log(item.title);
-
-          let ItemTitle = document.createElement("li");
-          ItemTitle.innerText = item.title;
-          ul.appendChild(ItemTitle)
-
-          if (item.children.length !== 0) {
-            let li = document.createElement("li");
-            li.innerText = item.title;
-            console.log(item.children);
-
-            console.log("Length is 1");
-            // console.log(group.pages);
-            li.appendChild(drawMenu(groupArr.children, container));
-
+            if (i === 0) {
+              li.textContent += `${data.title}`;
+              i++;
+              ul.appendChild(li);
+            }
+            
           }
+         
 
-
-        })
-        
-
-          ul.appendChild(li);
-
-        });
+          // ul.appendChild(li);
+      
+        }
 
         return ul;
       }
 
-      menu_container.appendChild(drawMenu(menu, menu_container));
+
+      menu_container.appendChild(drawJSON(menu, menu_container));
 
 
+
+
+
+
+
+
+
+
+      // // Function to recursively draw JSON as a menu
+      // function drawMenu(data, container) {
+      //   const ul = document.createElement("ul");
+     
         
 
+      //   (data || []).map((group, i) => {
+      //     let li = document.createElement("li");
+      //     li.textContent = group.group;
+
+      //     // console.log(i);
+
+      //     let groupArr = group.pages;
+
+                   
+      //     (groupArr || []).map((item) => {
+      //       console.log(item);
+
+      //     // console.log(item.children.length);
+      //     // console.log(item.title);
+
+      //     let ItemTitle = document.createElement("li");
+      //     ItemTitle.innerText = item.title;
+      //     ul.appendChild(ItemTitle)
+
+      //     if (item.children.length !== 0) {
+      //       let li = document.createElement("li");
+      //       li.innerText = item.title;
+      //       console.log(item.children);
+
+      //       console.log("Length is 1");
+      //       // console.log(group.pages);
+      //       li.appendChild(drawMenu(groupArr.children, container));
+
+      //     }
 
 
+      //   })
+        
 
+      //     ul.appendChild(li);
 
+      //   });
 
+      //   return ul;
+      // }
+
+      // menu_container.appendChild(drawMenu(menu, menu_container));
 
 
 
