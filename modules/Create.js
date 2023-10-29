@@ -1,16 +1,8 @@
 import { getData } from "./getData.js";
-// import { parentTodolist } from "../index.js";
-import { todolist } from "../index.js";
 
-// getData();
 
-// let create_btn = document.getElementById("main_div_create_btn");
-
-// create_btn.addEventListener("click", Create);
 
 export async function Create() {
-
-    // CheckHref();
 
     // Delete posts page
     let parentTodolist = document.querySelector("#main_div_list_div")
@@ -72,7 +64,6 @@ export async function Create() {
     await fetch("https://jsonplaceholder.typicode.com/users")
         .then((stream) => { return stream.json() })
         .then((data) => {
-            console.log(data);
             users = data;
         })
 
@@ -119,7 +110,6 @@ export async function Create() {
         parentTodolist.removeChild(createDiv);
         parentTodolist.removeChild(inputsDIV);
         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
-        // parentTodolist.appendChild(todolist);
         getData();
     }
 

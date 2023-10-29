@@ -1,22 +1,14 @@
 import { getData } from "./getData.js";
-import { todolist } from "../index.js";
-import { parentTodolist } from "../index.js";
-
-
 
 
 
 export async function Edit(data) {
 
 
-    console.log(data);
-
     // Delete posts page
     let parentTodolist = document.querySelector("#main_div_list_div")
     parentTodolist.removeChild(document.querySelector("#main_div_list"));
 
-    // Delete posts page
-    // parentTodolist.removeChild(todolist)
 
     // Add Create page
     let createDiv = document.createElement("div");
@@ -73,7 +65,6 @@ export async function Edit(data) {
     await fetch("https://jsonplaceholder.typicode.com/users")
         .then((stream) => { return stream.json() })
         .then((data) => {
-            console.log(data);
             users = data;
         })
 
@@ -139,7 +130,7 @@ export async function Edit(data) {
             },
         })
             .then((response) => response.json())
-            .then((json) => console.warn(json));
+            .then((json) => console.log(json));
 
 
         window.location.href = "http://127.0.0.1:5501/#/posts";
@@ -148,8 +139,6 @@ export async function Edit(data) {
     }
 
     saveButton.addEventListener("click", EditPost);
-
-    /////////////
 
     window.location.href = `http://127.0.0.1:5501/#/posts/edit/${data.id}`;
 

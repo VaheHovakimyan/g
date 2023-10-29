@@ -22,7 +22,7 @@
 .sidebar_group_title {
     display: flex;
     flex-direction: column;
-    padding: 8px 16px 8px 32px;
+    padding: 4px 16px 4px 32px;
     gap: 10px;
     color: #ADB5BD;
     font-family: Inter;
@@ -35,7 +35,6 @@
 
 .sidebar_page_div{
     display: flex;
-    /* justify-content: center; */
     align-items: center;
 }
 
@@ -46,21 +45,21 @@
     gap: 10px;
     color: #8A92A6;
     font-family: Inter;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 175%;
 }
 
 .sidebar_page_icon{
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
     padding: 6px;
 }
 
 .sidebar_page_div_name{
     display: flex;
     align-items: center;
-    padding: 2px 2px 2px 12px;
+    padding: 1px 2px 1px 12px;
     gap: 10px;
 }

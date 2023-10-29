@@ -1,3 +1,4 @@
+/* Header style */
 .header {
     display: flex;
     justify-content: space-between;
@@ -66,7 +67,6 @@
     font-weight: 400;
     line-height: 175%;
 }
-
 
 .header_lang_notif_account {
     display: flex;
