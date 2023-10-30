@@ -106,7 +106,7 @@ export async function Create() {
     parentTodolist.appendChild(createButtonCancelButtonDivFlex);
 
     function Cancel() {
-        window.location.href = "http://127.0.0.1:5501/#/posts";
+        window.location.hash = "#/posts";
         parentTodolist.removeChild(createDiv);
         parentTodolist.removeChild(inputsDIV);
         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
@@ -130,7 +130,7 @@ export async function Create() {
             .then((response) => response.json())
             .then((json) => console.log(json));
 
-        window.location.href = "http://127.0.0.1:5501/#/posts";
+        window.location.hash = "#/posts";
 
         Cancel();
     }

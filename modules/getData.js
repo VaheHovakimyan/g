@@ -103,7 +103,7 @@ export async function getData() {
     todolist.appendChild(parentTitleDiv);
 
 
-    window.location.href = "http://127.0.0.1:5501/#/posts";
+    window.location.hash = "#/posts";
 
     let posts = [];
     let users = [];

@@ -107,7 +107,7 @@ export async function Edit(data) {
     parentTodolist.appendChild(createButtonCancelButtonDivFlex);
 
     function Cancel() {
-        window.location.href = "http://127.0.0.1:5501/#/posts";
+        window.location.hash = "#/posts";
         parentTodolist.removeChild(createDiv);
         parentTodolist.removeChild(inputsDIV);
         parentTodolist.removeChild(createButtonCancelButtonDivFlex);
