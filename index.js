@@ -5,6 +5,24 @@ import { Close } from "./modules/Close.js";
 import { Edit } from "./modules/Edit.js";
 
 
+function CheckUrlHash(){
+    switch (window.location.hash) {
+        case "#/posts":
+            getData();
+            break;
+
+        case "#/posts/create":
+            Create();
+            break;
+    
+        default:
+            getData();
+            break;
+    }
+}
+
+CheckUrlHash();
+
 
 let parentTodolist = document.getElementById("main_div_list_div");
 

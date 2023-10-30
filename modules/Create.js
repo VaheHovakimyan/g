@@ -1,7 +1,6 @@
 import { getData } from "./getData.js";
 
 
-
 export async function Create() {
 
     // Delete posts page
@@ -139,5 +138,7 @@ export async function Create() {
     createButton.addEventListener("click", CreatePost);
 
     window.location.hash = "#/posts/create";
+
+    CheckUrlHash();
 
 }
