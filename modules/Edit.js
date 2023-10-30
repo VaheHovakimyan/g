@@ -133,13 +133,14 @@ export async function Edit(data) {
             .then((json) => console.log(json));
 
 
-        window.location.href = "http://127.0.0.1:5501/#/posts";
+        window.location.hash = "#/posts";
 
         Cancel();
     }
 
     saveButton.addEventListener("click", EditPost);
 
-    window.location.href = `http://127.0.0.1:5501/#/posts/edit/${data.id}`;
+
+    window.location.hash = `#/posts/edit/${data.id}`;
 
 }
